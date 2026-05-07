@@ -16,7 +16,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import numpy as np
 from pathlib import Path
-from camera import LoadStreams, LoadImages
+from camera import LoadStreams, LoadImages, LoadWebcam
 # from utils.dataloaders import LoadStreams, LoadImages
 from utils.general import (LOGGER, Profile, check_file, check_img_size,
                            check_imshow, cv2, increment_path, non_max_suppression, scale_boxes)
@@ -161,8 +161,9 @@ if __name__ == "__main__":
     yolo = YOLONet(opt)
     if yolo.webcam:
         # cudnn.benchmark = True  # set True to speed up constant image size inference
-        dataset = LoadStreams(
-            yolo.source, yolo.imgsz, yolo.stride, False, vid_stride=yolo.vid_stride)
+        # dataset = LoadStreams(
+        #     yolo.source, yolo.imgsz, yolo.stride, False, vid_stride=yolo.vid_stride)
+        dataset = LoadWebcam('0')
     else:
         dataset = LoadImages(
             yolo.source, yolo.imgsz, yolo.stride)
